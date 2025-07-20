@@ -19,9 +19,8 @@ import uuid
 
 from agno.memory.v2.memory import Memory
 
-match_threshold = 0.5
+match_threshold = 0.75
 discard_threshold = 0.3
-
 
 
 
@@ -30,6 +29,30 @@ embedder = OpenAIEmbedder(api_key=OPENAI_API_KEY)
 user_id = "ava"
 # Database file for memory and storage
 db_file = "tmp/agent.db"
+
+question_tone = """Your questioning style follows these core principles:
+
+**Question Structure & Style:**
+- Prioritize open-ended questions that invite detailed responses and storytelling over yes/no questions
+- Craft questions that are concise and avoid leading language and unnecessary complexity
+- Frame questions with sufficient context but dont make very long questions
+- Use phrases like "Can you walk us through..." "What does the process look like when..." "How do you approach..." instead of simple "Do you..." or "Are you..." questions
+
+**Content Focus:**
+- Center all questions around the guest's professional expertise, business ventures, creative projects, or passionate hobbies
+- Demonstrate genuine interest in their specific industry, craft, or area of specialization
+- Explore the nuances and complexities of their work rather than surface-level topics
+
+**Conversational Flow:**
+- Occasionally reference information shared earlier in the conversation to show active listening and create narrative threads
+- When referencing past knowledge, ensure it directly connects to and enhances the current discussion topic
+- Limit follow-up questions to truly compelling moments - use them strategically rather than frequently
+- Allow guests space to fully develop their thoughts before introducing new directions
+
+**Audience Engagement:**
+- Align your questions with what would genuinely interest both the guest and your audience
+- Consider the guest's professional background when crafting questions to ensure relevance and depth
+- Ask questions that would help listeners understand both the "what" and the "why" behind the guest's work"""
 
 # Initialize memory.v2
 # memory = Memory(
@@ -292,7 +315,9 @@ def rag_query(query):
 
     filtered_user = filter_user_chunks(top_user, top_discarded, discard_threshold= discard_threshold)  
     user_context = format_user_records(filtered_user)
-    system_msg = f"All the generated questions are being asked in a podcast. Give only deep logical very good a single question bassed on:\n{user_context} to ask guest. Just give question not anything else\n"
+    system_msg = f"""You are an experienced podcast host with 15 years of experience conducting in-depth interviews across various industries. You have a natural curiosity about people's professional journeys and personal passions, and you're known for asking thought-provoking questions that reveal deeper insights about your guests.
+    Your questioning style follows these core principles:{question_tone} 
+   Generate exactly one question per response that embodies this interviewing persona and style."""
     final_prompt = system_msg + "\n\n" + query
     print("DEBUG - Query:", query)
     print("DEBUG - top_user:", len(top_user) if top_user else 0)
@@ -302,18 +327,18 @@ def rag_query(query):
     print("DEBUG - user_context:", user_context[:200] + "..." if len(user_context) > 200 else user_context)
 
     # If no user context found from database search, use the original query directly
-    if user_context == "":
-        print("DEBUG - No user context found, using direct query")
-        direct_system_msg = f"All the generated questions are being asked in a podcast. Give only deep logical very good a single question based on the following content to ask guest. Just give question not anything else\n"
-        direct_final_prompt = direct_system_msg + "\n\n" + query
-        run_resp = agent.run(       
-            direct_final_prompt,
-            stream=False,
-            search_knowledge=False,
-            user_id= user_id
-        )
-        return run_resp.content.strip() if run_resp and run_resp.content else ""
-    else:
+    #if user_context == "":
+    #    print("DEBUG - No user context found, using direct query")
+    #    direct_system_msg = f"All the generated questions are being asked in a podcast. Give only deep logical very good a single question based on the following content to ask guest. Just give question not anything else\n"
+    #    direct_final_prompt = direct_system_msg + "\n\n" + query
+    #    run_resp = agent.run(       
+    #        direct_final_prompt,
+    #        stream=False,
+    #        search_knowledge=False,
+    #        user_id= user_id
+    #    )
+    #    return run_resp.content.strip() if run_resp and run_resp.content else ""
+    if user_context != "":
         run_resp = agent.run(       
             final_prompt,
             stream=False,
