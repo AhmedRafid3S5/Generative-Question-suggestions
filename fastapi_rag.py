@@ -352,7 +352,8 @@ def rag_query(query):
 @app.post("/generate_question")
 def generate_question_with_authority(req: TranscriptionRequest):
     # Split transcription text by dollar sign to separate paragraphs
-    raw_paragraphs = [p.strip() for p in req.transcription_text.split('$') if p.strip()]
+    cleaned_transcription = req.transcription_text.replace("'","")
+    raw_paragraphs = [p.strip() for p in cleaned_transcription.split('$') if p.strip()]
     
     # If no dollar signs found, split by periods as fallback
     if len(raw_paragraphs) <= 1:
