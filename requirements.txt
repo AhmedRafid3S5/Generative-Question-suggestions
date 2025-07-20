@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+pydantic
+numpy
+pandas
+lancedb
+pyarrow
+agno
+tantivy
+openai
+python-dotenv
+uuid
+networkx
+sqlalchemy
+pylance
+scipy
+scikit-learn

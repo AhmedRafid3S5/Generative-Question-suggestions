@@ -1,0 +1,109 @@
+{
+  "info": {
+    "name": "Podcast RAG FastAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Add User Data",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "[{\"id\": \"database_skill_10\", \"context\": \"React\"}]"
+        },
+        "url": { "raw": "http://localhost:8000/add_user_data", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["add_user_data"] }
+      }
+    },
+    {
+      "name": "Generate Question with Authority",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"transcription_text\": \"In graph theory, the Katz centrality of a node is a measure of centrality in a network. It was introduced by Leo Katz in 1953 and is used to measure the relative degree of influence of an actor (or node) within a social network. Unlike typical centrality measures which consider only the shortest path (the geodesic) between a pair of actors, Katz centrality measures influence by taking into account the total number of walks between a pair of actors.$Machine learning is a branch of computer science that focuses on developing algorithms and statistical models that enable computers to perform tasks without explicit programming. It encompasses various techniques including supervised learning, unsupervised learning, and reinforcement learning. The field has seen tremendous growth in recent years due to advances in computational power and data availability.$One of the main advantages of ML is its ability to learn patterns from data without explicit programming, making it particularly useful for complex pattern recognition tasks. This includes applications in computer vision, natural language processing, and predictive analytics. The algorithms can automatically improve their performance through experience.$It is broadly divided into supervised learning, where models train with labeled data, and unsupervised learning for finding structure in unlabeled data. Supervised learning includes classification and regression tasks, while unsupervised learning includes clustering and dimensionality reduction. Advanced techniques like neural networks and deep learning have enabled breakthroughs in tasks such as image recognition, NLP, and more.\"}"
+        },
+        "url": { "raw": "http://localhost:8000/v1/question/suggest-question", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["generate_question"] }
+      }
+    },
+    {
+      "name": "Add Discarded Data",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "[{\"id\": \"database_skill_4\", \"context\": \"React, MySQL\"}]"
+        },
+        "url": { "raw": "http://localhost:8000/add_discarded_data", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["add_discarded_data"] }
+      }
+    },
+    {
+      "name": "Update User Data",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"id\": \"database_skill_10\", \"context\": \"This is an updated user transcription.\", \"source\": \"user_info\"}"
+        },
+        "url": { "raw": "http://localhost:8000/update_user_data", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["update_user_data"] }
+      }
+    },
+    {
+      "name": "Update Discarded Data",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"id\": \"database_skill_4\", \"context\": \"This is an updated discarded transcription.\", \"source\": \"skipped_info\"}"
+        },
+        "url": { "raw": "http://localhost:8000/update_discarded_data", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["update_discarded_data"] }
+      }
+    },
+    {
+      "name": "Delete User Data",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "[\"database_skill_10\"]"
+        },
+        "url": { "raw": "http://localhost:8000/delete_user_data", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["delete_user_data"] }
+      }
+    },
+    {
+      "name": "Delete Discarded Data",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "[\"Machine learning is a branch of computer science that focuses on developing algorithms and statistical models that enable computers to perform tasks without explicit programming. It encompasses various techniques including supervised learning, unsupervised learning, and reinforcement learning. The field has seen tremendous growth in recent years due to advances in computational power and data availability.\"]"
+        },
+        "url": { "raw": "http://localhost:8000/delete_discarded_data", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["delete_discarded_data"] }
+      }
+    },
+    
+    {
+      "name": "Show User LanceDB",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "http://localhost:8000/show_user_lancedb", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["show_user_lancedb"] }
+      }
+    },
+    {
+      "name": "Show Skipped LanceDB",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "http://localhost:8000/show_skipped_lancedb", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["show_skipped_lancedb"] }
+      }
+    }
+  ]
+}
