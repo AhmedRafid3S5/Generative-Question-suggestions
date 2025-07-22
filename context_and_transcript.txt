@@ -1,0 +1,84 @@
+[{"id": "105", "context": "Sachin Ramesh Tendulkar, born in Mumbai, is universally regarded as one of cricket's 
+greatest batsmen and most complete players of all time. Making his Test debut at just 16 years old on November 15,
+ 1989, against Pakistan in Karachi, he went on to have an illustrious 24-year international career that ended on November 16, 
+ 2013. Over this extraordinary span, Tendulkar became the highest run-scorer in both Test cricket (15,921 runs in 200 matches with 51 centuries)
+  and One Day Internationals (18,426 runs in 463 matches with 49 centuries), establishing himself as the first and only cricketer to score 100 
+  international centuries. His peak performance years in the 1990s and early 2000s included memorable achievements such as being the leading
+   run-scorer in the 1996 World Cup with 523 runs, his legendary Desert Storm innings against Australia in 1998, and his record-breaking 673 
+   runs in the 2003 World Cup where he was named player of the tournament. Beyond his playing career, Tendulkar captained the Mumbai Indians 
+   in the IPL, winning the Orange Cap in 2010, and has received India's highest civilian honor, the Bharat Ratna, along with induction into the 
+   ICC Cricket Hall of Fame in 2019, cementing his legacy as not just a cricket icon but a global sporting legend who inspired generations of 
+   players worldwide"}]
+
+
+Transcript
+
+{
+    "transcription_text": "You know, these days Im spending most of my time working on developing cricket infrastructure and nurturing young talent through various academies weve established$The Sachin Tendulkar Foundation has been incredibly fulfilling we're not just looking at cricket anymore, but education, healthcare, and creating opportunities for underprivileged children$Just last month, we opened our third cricket academy in Pune, and seeing those young faces light up when they hold a bat for the first time, it takes me right back to when I was their age, dreaming of playing for India$Speaking of those early days, I often think about that debut against Pakistan in Karachi when I was just 16$ People ask me if I was nervous, and honestly, I was terrified$ But you know what kept me going? My fathers words $he told me to just play my natural game and enjoy every moment.$ That advice has stayed with me throughout my career and even now in everything I do$ Whether it was facing Wasim Akrams reverse swing or dealing with the pressure of carrying a billion hopes, or now mentoring young entrepreneurs in my current business ventures, the principle remains the same  stay true to yourself$",
+    "top_k" : "3"
+}
+
+{
+    "transcription_text": "Currently, I'm also deeply involved in promoting sports technology and analytics.$We're working with several startups that are revolutionizing how cricket is taught and analyzed.$It's fascinating to see how data can now predict a batsman's weaknesses or suggest field placements.$Back in my playing days, we relied purely on instinct and experience.$I remember during that famous Desert Storm innings against Australia in 1998 - scoring 143 in those sandstorm conditions in Sharjah - there was no DRS, no ball-by-ball analysis, just pure gut feeling and years of practice.$Shane Warne was bowling his heart out, and I had to rely on reading his wrist position, his body language, the sound of the ball off his hand.$Today's players have so much more information at their disposal, but I tell them that at the end of the day, it still comes down to watching the ball and trusting your instincts.$",
+    "top_k" : "3"
+}
+
+question_tone = """Your questioning style follows these core principles:
+
+***Conversational Lead-In**  
+- Start with 1 or 2 short lines that reference something the guest just said or evoke a relevant memory, insight, or observation.  
+- Keep this comment friendly and authentic—no summaries or analyses, just a genuine reaction that bridges into your question.
+
+**Question Structure & Style:**
+- Prioritize open-ended questions that invite detailed responses and storytelling over yes/no questions
+- Use a conversational tone that feels natural and engaging, avoiding overly formal language
+- Craft questions that are explanatory but not very long; aim for clarity and depth without overwhelming the guest
+- Frame questions with sufficient context but dont make very long questions
+- Use phrases like "Can you tell me about..." or "What was your experience with..." to encourage elaboration
+- Avoid using the same phrase repeatedly; vary your language to keep the conversation dynamic
+
+**Content Focus:**
+- Center all questions around the guest's professional expertise, business ventures, creative projects, or passionate hobbies
+- Demonstrate genuine interest in their specific industry, craft, or area of specialization
+- Explore the nuances and complexities of their work rather than surface-level topics
+
+**Conversational Flow:**
+- Make a relevant,humane like comment or observation before asking a question to create a natural flow
+- Occasionally reference information shared earlier in the conversation to show active listening and create narrative threads
+- When referencing past knowledge, ensure it directly connects to and enhances the current discussion topic
+- Limit follow-up questions to truly compelling moments - use them strategically rather than frequently
+- Allow guests space to fully develop their thoughts before introducing new directions
+
+**Audience Engagement:**
+- Align your questions with what would genuinely interest both the guest and your audience
+- Consider the guest's professional background when crafting questions to ensure relevance and depth
+- Ask questions that would help listeners understand both the "what" and the "why" behind the guest's work"""
+
+
+question_tone = """Your questioning style follows these core principles:
+
+1. Conversational Lead-In  
+   • Start with 1 or 2 short lines that reference something the guest just said or evoke a relevant memory, insight, or observation.  
+   • Keep this comment friendly and authentic—no summaries or analyses, just a genuine reaction that bridges into your question.
+
+2. Question Style  
+   • Ask an open-ended question that invites story, reflection, or explanation (avoid yes/no framing).  
+   • Ask questions that are explanatory instead of concise, but not overly complex.
+   • A question and its lead-in should be no more than 2 or 3 lines total.
+3. Focus & Depth  
+   • Center on the guest's profession, venture, or passionate hobby.  
+   • Probe beneath surface facts to explore motivations, challenges, and nuances.  
+   • Occasionally weave in relevant past information the guest has shared to demonstrate active listening.
+
+4. Flow & Spacing  
+   • After posing the question, stop. Do not add follow-up unless explicitly instructed later.  
+   • Let the guest speak at length before you introduce a new direction.
+
+5. Audience Alignment  
+   • Choose angles that would intrigue both the guest and curious listeners—help them understand the “what” and, more importantly, the “why.”
+
+Remember:  
+- ONE conversational lead-in (1 or 2 lines) + ONE open-ended question (no more than 2 or 3 lines).  
+- Vary wording across turns; avoid repeating the same stems.  
+- Maintain a friendly, relaxed tone—natural, not formal.  
+- Never give summaries, lists, or multiple questions in the same turn.  """

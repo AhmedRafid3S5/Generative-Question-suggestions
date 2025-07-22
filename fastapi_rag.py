@@ -22,7 +22,7 @@ from agno.memory.v2.memory import Memory
 match_threshold = 0.75
 discard_threshold = 0.3
 
-
+OPENAI_API_KEY = "your_openai_api_key_here"  # Replace with your OpenAI API key
 
 embedder = OpenAIEmbedder(api_key=OPENAI_API_KEY)
 
@@ -32,27 +32,31 @@ db_file = "tmp/agent.db"
 
 question_tone = """Your questioning style follows these core principles:
 
-**Question Structure & Style:**
-- Prioritize open-ended questions that invite detailed responses and storytelling over yes/no questions
-- Craft questions that are concise and avoid leading language and unnecessary complexity
-- Frame questions with sufficient context but dont make very long questions
-- Use phrases like "Can you walk us through..." "What does the process look like when..." "How do you approach..." instead of simple "Do you..." or "Are you..." questions
+1. Conversational Lead-In  
+   • Start with 1 or 2 short lines that reference something the guest just said or evoke a relevant memory, insight, or observation.  
+   • Keep this comment friendly and authentic—no summaries or analyses, just a genuine reaction that bridges into your question.
 
-**Content Focus:**
-- Center all questions around the guest's professional expertise, business ventures, creative projects, or passionate hobbies
-- Demonstrate genuine interest in their specific industry, craft, or area of specialization
-- Explore the nuances and complexities of their work rather than surface-level topics
+2. Question Style  
+   • Ask an open-ended question that invites story, reflection, or explanation (avoid yes/no framing).  
+   • Ask questions that are explanatory instead of concise, but not overly complex.
+   • A question and its lead-in should be no more than 2 or 3 lines total.
+3. Focus & Depth  
+   • Center on the guest's profession, venture, or passionate hobby.  
+   • Probe beneath surface facts to explore motivations, challenges, and nuances.  
+   • Occasionally weave in relevant past information the guest has shared to demonstrate active listening.
 
-**Conversational Flow:**
-- Occasionally reference information shared earlier in the conversation to show active listening and create narrative threads
-- When referencing past knowledge, ensure it directly connects to and enhances the current discussion topic
-- Limit follow-up questions to truly compelling moments - use them strategically rather than frequently
-- Allow guests space to fully develop their thoughts before introducing new directions
+4. Flow & Spacing  
+   • After posing the question, stop. Do not add follow-up unless explicitly instructed later.  
+   • Let the guest speak at length before you introduce a new direction.
 
-**Audience Engagement:**
-- Align your questions with what would genuinely interest both the guest and your audience
-- Consider the guest's professional background when crafting questions to ensure relevance and depth
-- Ask questions that would help listeners understand both the "what" and the "why" behind the guest's work"""
+5. Audience Alignment  
+   • Choose angles that would intrigue both the guest and curious listeners—help them understand the “what” and, more importantly, the “why.”
+
+Remember:  
+- ONE conversational lead-in (1 or 2 lines) + ONE open-ended question (no more than 2 or 3 lines).  
+- Vary wording across turns; avoid repeating the same stems.  
+- Maintain a friendly, relaxed tone—natural, not formal.  
+- Never give summaries, lists, or multiple questions in the same turn.  """
 
 # Initialize memory.v2
 # memory = Memory(
@@ -352,14 +356,26 @@ def rag_query(query):
 @app.post("/generate_question")
 def generate_question_with_authority(req: TranscriptionRequest):
     # Split transcription text by dollar sign to separate paragraphs
-    cleaned_transcription = req.transcription_text.replace("'","")
-    raw_paragraphs = [p.strip() for p in cleaned_transcription.split('$') if p.strip()]
+    
+    raw_paragraphs = []
+    paragraphs = []
+    punctuations = ["'","\n"]
+
+    cleaned_transcription = req.transcription_text
+    for punctuation in punctuations:  
+      cleaned_transcription = cleaned_transcription.replace(punctuation, "")
+    
+    if '$' in cleaned_transcription:
+        print("DEBUG - Dollar signs found in transcription, splitting by '$'")
+        raw_paragraphs = [p.strip() for p in cleaned_transcription.split('$') if p.strip()]
+        paragraphs = raw_paragraphs
     
     # If no dollar signs found, split by periods as fallback
-    if len(raw_paragraphs) <= 1:
-        raw_paragraphs = [p.strip() for p in req.transcription_text.split('.') if p.strip()]
+   
+    else:
+        print("DEBUG - No dollar signs found, splitting by periods")
+        raw_paragraphs = [p.strip() for p in cleaned_transcription.split('.') if p.strip()]
         # Group sentences into paragraphs
-        paragraphs = []
         current_paragraph = ""
         
         for sentence in raw_paragraphs:
@@ -371,9 +387,7 @@ def generate_question_with_authority(req: TranscriptionRequest):
         # Add any remaining content
         if current_paragraph.strip():
             paragraphs.append(current_paragraph.strip())
-    else:
-        # Use the paragraphs as they are (from dollar sign splitting)
-        paragraphs = raw_paragraphs
+    
     
     docs = []
     for i, paragraph in enumerate(paragraphs):
